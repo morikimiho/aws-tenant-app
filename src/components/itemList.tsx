@@ -19,8 +19,9 @@ function ItemList() {
                 </tr>
             </thead>
             <tbody>
-                {data.map((item) => {
+                {data.map((item: { id: string; name: string; description: string; }) => {
                     return (
+                        // eslint-disable-next-line react/jsx-key
                         <tr>
                             <td>{item.id}</td>
                             <td>{item.name}</td>

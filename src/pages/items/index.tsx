@@ -11,7 +11,7 @@ export default function Page () {
             <Link href='/create.tsx' legacyBehavior>
                <a>新規登録</a>
             </Link>
-            {/* <ItemList /> */}
+            <ItemList />
         </>
     );
 }
