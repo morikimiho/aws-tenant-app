@@ -4,37 +4,25 @@
       "id": 1,
       "name": "ミルクチョコレート",
       "description": "甘いチョコレートです",
-      "price": 300,
-      "imageURL": "",
-      "deleted": false,
-      "options": ""
+      "price": 300
     },
     {
       "id": 2,
       "name": "ビターチョコレート",
       "description": "ほんのり苦いチョコレートです",
-      "price": 300,
-      "imageURL": "",
-      "deleted": false,
-      "options": ""
+      "price": 300
     },
     {
       "id": 3,
       "name": "カカオチョコレート",
       "description": "ベネズエラ産のチョコレートです",
-      "price": 500,
-      "imageURL": "",
-      "deleted": false,
-      "options": ""
+      "price": 500
     },
     {
       "id": 4,
       "name": "ルビーチョコレート",
       "description": "ルビーカカオ豆を使用しています",
-      "price": 600,
-      "imageURL": "",
-      "deleted": false,
-      "options": ""
+      "price": 600
     }
   ]
 }
