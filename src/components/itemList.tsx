@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import useSWR from 'swr';
 
 const fetcher = (resource, init) => fetch(resource, init).then((res) => res.json());
@@ -24,7 +25,11 @@ function ItemList() {
                         // eslint-disable-next-line react/jsx-key
                         <tr>
                             <td>{item.id}</td>
-                            <td>{item.name}</td>
+                            <td>
+                                <Link href='../pages/items/[id]' >
+                                    {item.name}
+                                </Link>
+                            </td>
                             <td>{item.description}</td>
                             <td>[削除]</td>
                         </tr>
