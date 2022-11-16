@@ -22,7 +22,7 @@ export default function ItemRegistration() {
     //router
     const router = useRouter();
 
-    async function  handleOnSubmit () {
+    async function HandleOnSubmit () {
         await fetch('http://localhost:8000/items', {
           method: 'POST',
           headers: {
@@ -63,7 +63,7 @@ export default function ItemRegistration() {
             </form>
             <div>
                 <br />
-                <button type="submit" value="送信" onClick={handleOnSubmit}>送信</button>
+                <button type="submit" value="送信" onClick={HandleOnSubmit}>送信</button>
                 <button type="reset" value="リセット">リセット</button>
             </div>
         </>
