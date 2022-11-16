@@ -26,7 +26,7 @@ function ItemList() {
                         <tr>
                             <td>{item.id}</td>
                             <td>
-                                <Link href='../pages/items/[id]' >
+                                <Link href={`../items/${item.id}`} >
                                     {item.name}
                                 </Link>
                             </td>
