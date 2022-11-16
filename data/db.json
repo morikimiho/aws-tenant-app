@@ -25,13 +25,8 @@
       "deleted": false
     },
     {
-      "id": 4,
-      "name": "ルビーチョコレート",
-      "description": "ルビーカカオ豆を使用しています",
-      "price": 600,
-      "imageUrl": "",
-      "deleted": false
+      "deleted": true,
+      "id": 4
     }
-
   ]
 }
