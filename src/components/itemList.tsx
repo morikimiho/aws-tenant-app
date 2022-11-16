@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import useSWR from 'swr';
+import { useState } from 'react';
+import useSWR from 'swr'; 
 
 const fetcher = (resource, init) => fetch(resource, init).then((res) => res.json());
 function ItemList() {
@@ -31,7 +32,7 @@ function ItemList() {
                                 </Link>
                             </td>
                             <td>{item.description}</td>
-                            <td>[削除]</td>
+                            <td><button onClick={() => {setDeleted(true)}}>[削除]</button>[</td>
                         </tr>
                     );
                 })}
@@ -41,4 +42,8 @@ function ItemList() {
     );
 }
 
+function isDelete () {
+    const [deleted, setDeleted] = useState(false);
+
+}
 export default ItemList;
