@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import useSWR from 'swr';
+import { useState } from 'react';
+import useSWR from 'swr'; 
 
 const fetcher = (resource, init) => fetch(resource, init).then((res) => res.json());
 function ItemList() {
@@ -26,12 +27,12 @@ function ItemList() {
                         <tr>
                             <td>{item.id}</td>
                             <td>
-                                <Link href='../pages/items/[id]' >
+                                <Link href={`../items/${item.id}`} >
                                     {item.name}
                                 </Link>
                             </td>
                             <td>{item.description}</td>
-                            <td>[削除]</td>
+                            <td><button onClick={() => {setDeleted(true)}}>[削除]</button>[</td>
                         </tr>
                     );
                 })}
@@ -41,22 +42,8 @@ function ItemList() {
     );
 }
 
-export default ItemList;
+function isDelete () {
+    const [deleted, setDeleted] = useState(false);
 
-// 商品
-type Item = {
-    // 識別子
-    id: number;
-    // 商品名
-    name: string;
-    // 商品の説明
-    description: string;
-    // 商品の価格
-    price: number;
-    // 商品画像のURL
-    imageUrl: string;
-    // 削除フラグ
-    deleted: boolean;
-    // 商品に付随するオプション
-    options: Option[];
-  };
+}
+export default ItemList;
