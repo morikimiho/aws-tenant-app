@@ -8,7 +8,7 @@ export default function Page () {
             <Head>
                 <title>商品一覧</title>
             </Head>
-            <Link href='/create.tsx' legacyBehavior>
+            <Link href='http://localhost:3000/items/create' legacyBehavior>
                <a>新規登録</a>
             </Link>
             <ItemList />

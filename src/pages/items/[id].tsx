@@ -5,7 +5,7 @@ export default function ItemDetail({item}:{
     item: {
       name: string
       description: string
-      price: number
+      price: string
     }}) {
         return (
         <>
