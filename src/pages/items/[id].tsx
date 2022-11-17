@@ -1,9 +1,11 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
+import Image from "next/image";
 
 export default function ItemDetail({item}:{
     item: {
       name: string
+      imageUrl: string
       description: string
       price: number
     }}) {
@@ -14,8 +16,9 @@ export default function ItemDetail({item}:{
             </Head>
             <article>
                 <h3>{item.name}</h3>
+                <p><Image src={item.imageUrl} alt={''} width={250} height={250}/></p>
                 <p>{item.description}</p>
-                <p>{item.price}円</p>
+                <p>【価格】{item.price}円</p>
             </article>
         </>
     );

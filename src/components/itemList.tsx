@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import useSWR from 'swr'; 
+import Image from 'next/image';
 
 const fetcher = (resource: RequestInfo | URL, init: RequestInit | undefined) => fetch(resource, init).then((res) => res.json());
 export default function ItemList() {
@@ -15,13 +16,14 @@ export default function ItemList() {
             <thead>
                 <tr>
                     <th>ID</th>
+                    <th>画像</th>
                     <th>商品名</th>
                     <th>説明</th>
                     <th>操作</th>
                 </tr>
             </thead>
             <tbody>
-                {data.map((item: { id: string; name: string; description: string; deleted: boolean}) => {
+                {data.map((item: { id: string; name: string; description: string; imageUrl: string; deleted: boolean}) => {
                     const page = item.id.toString();
                     const flag = {deleted: true};
                     function isDeleted () {
@@ -47,6 +49,7 @@ export default function ItemList() {
                             // eslint-disable-next-line react/jsx-key
                             <tr>
                                 <td>{item.id}</td>
+                                <td><Image src={item.imageUrl} alt={''} width={150} height={150}/></td>
                                 <td><Link href={`../items/${item.id}`} >{item.name}</Link></td>
                                 <td>{item.description}</td>
                                 <td><button onClick={isDeleted}>[削除]</button></td>
