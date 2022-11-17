@@ -8,9 +8,15 @@ export default function Page () {
             <Head>
                 <title>商品一覧</title>
             </Head>
-            <Link href='http://localhost:3000/items/create' legacyBehavior>
-               <a>新規登録</a>
-            </Link>
+            <>
+                <h1>商品一覧</h1>
+                <h2>下記から商品登録ができます。</h2>
+                <button>
+                    <Link href='http://localhost:3000/items/create' legacyBehavior>
+                        <a>新規登録</a>
+                    </Link>
+                </button>
+            </>
             <ItemList />
         </>
     );

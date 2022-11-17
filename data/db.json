@@ -5,7 +5,7 @@
       "name": "ミルクチョコレート",
       "description": "甘いチョコレートです",
       "price": 300,
-      "imageUrl": "",
+      "imageUrl": "/images/sweets_chocolate_milk.png",
       "deleted": false
     },
     {
@@ -13,7 +13,7 @@
       "name": "ビターチョコレート",
       "description": "ほんのり苦いチョコレートです",
       "price": 300,
-      "imageUrl": "",
+      "imageUrl": "/images/sweets_chocolate_dark.png",
       "deleted": false
     },
     {
@@ -21,12 +21,28 @@
       "name": "カカオチョコレート",
       "description": "ベネズエラ産のチョコレートです",
       "price": 500,
-      "imageUrl": "",
+      "imageUrl": "/images/valentine_chocolates.png",
       "deleted": false
     },
     {
       "deleted": true,
       "id": 4
+    },
+    {
+      "name": "ルビーチョコレート",
+      "description": "ルビーカカオ豆を使用しています。",
+      "price": "500",
+      "imageUrl": "/images/sweets_ruby_chocolate.png",
+      "deleted": false,
+      "id": 5
+    },
+    {
+      "name": "ホワイトチョコレート",
+      "description": "ホワイトチョコレートです。",
+      "price": "300",
+      "imageUrl": "/images/sweets_chocolate_white.png",
+      "deleted": false,
+      "id": 6
     }
   ]
 }
