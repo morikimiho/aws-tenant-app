@@ -9,6 +9,8 @@ export default function ItemDetail({item}:{
       description: string
       price: number
     }}) {
+
+        
         return (
         <>
             <Head>
