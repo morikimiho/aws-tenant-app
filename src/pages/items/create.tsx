@@ -30,6 +30,7 @@ export default function ItemRegistration() {
           },
           body: JSON.stringify(data),
         })
+
     
         .then((response) => response.json())
         .then((data) => {
