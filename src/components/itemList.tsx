@@ -1,18 +1,15 @@
-import Link from 'next/link';
-import useSWR from 'swr';
-import Image from 'next/image';
+import Link from 'next/link'
+import useSWR from 'swr'
+import Image from 'next/image'
+import axios from 'axios'
 
-const fetcher = (
-  resource: RequestInfo | URL,
-  init: RequestInit | undefined
-) => fetch(resource, init).then((res) => res.json());
 export default function ItemList() {
-  const { data, error } = useSWR('/api/items', fetcher);
-
-  if (error) return <div>failed to load</div>;
-
-  if (!data) return <div>loading...</div>;
-
+  const getItems = async () => {
+    const { data } = await axios.get(
+      `${process.env.NEXT_PUBLIC_API_URL}/items/get`
+    )
+    return data
+  }
   return (
     <table>
       <thead>
@@ -27,14 +24,14 @@ export default function ItemList() {
       <tbody>
         {data.map(
           (item: {
-            id: string;
-            name: string;
-            description: string;
-            imageUrl: string;
-            deleted: boolean;
+            id: string
+            name: string
+            description: string
+            imageUrl: string
+            deleted: boolean
           }) => {
-            const page = item.id.toString();
-            const flag = { deleted: true };
+            const page = item.id.toString()
+            const flag = { deleted: true }
             function isDeleted() {
               fetch(`http://localhost:8000/items/${page}`, {
                 method: 'PATCH',
@@ -43,13 +40,6 @@ export default function ItemList() {
                 },
                 body: JSON.stringify(flag),
               })
-                .then((response) => {
-                  return response.json();
-                })
-                .then((data) => {
-                  console.log(data);
-                  location.reload();
-                });
             }
 
             if (item.deleted === false) {
@@ -80,11 +70,11 @@ export default function ItemList() {
                     <button onClick={isDeleted}>[削除]</button>
                   </td>
                 </tr>
-              );
+              )
             }
           }
         )}
       </tbody>
     </table>
-  );
+  )
 }
