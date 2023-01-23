@@ -53,38 +53,39 @@ export default function ItemList() {
                 })
                 .then((data) => {
                   console.log(data)
-                  router.push('/items')
+                  location.reload()
                 })
             }
 
             if (item.deleted === false) {
               return (
-                // eslint-disable-next-line react/jsx-key
-                <tr>
-                  <td>{item.id}</td>
-                  <td>
-                    <Image
-                      src={item.imageUrl}
-                      alt={''}
-                      width={150}
-                      height={150}
-                    />
-                  </td>
-                  <td>
-                    <Link href={`../items/${item.id}`}>
-                      {item.name}
-                    </Link>
-                  </td>
-                  <td>{item.description}</td>
-                  <td>
-                    <Link href={`../edit/${item.id}`}>
-                      <button>[編集]</button>
-                    </Link>
-                  </td>
-                  <td>
-                    <button onClick={isDeleted}>[削除]</button>
-                  </td>
-                </tr>
+                <>
+                  <tr key={item.id}>
+                    <td>{item.id}</td>
+                    <td>
+                      <Image
+                        src={item.imageUrl}
+                        alt={''}
+                        width={150}
+                        height={150}
+                      />
+                    </td>
+                    <td>
+                      <Link href={`../items/${item.id}`}>
+                        {item.name}
+                      </Link>
+                    </td>
+                    <td>{item.description}</td>
+                    <td>
+                      <Link href={`../edit/${item.id}`}>
+                        <button>[編集]</button>
+                      </Link>
+                    </td>
+                    <td>
+                      <button onClick={isDeleted}>[削除]</button>
+                    </td>
+                  </tr>
+                </>
               )
             }
           }
