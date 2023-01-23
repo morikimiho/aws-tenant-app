@@ -1,6 +1,8 @@
+import axios from 'axios'
 import ItemList from 'components/itemList'
 import Head from 'next/head'
 import Link from 'next/link'
+import { Item } from '../../../type/type'
 
 export default function Page() {
   return (
