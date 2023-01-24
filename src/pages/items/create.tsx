@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import axios from 'axios'
 
 // 表示画面
 export default function ItemRegistration() {
@@ -22,21 +23,28 @@ export default function ItemRegistration() {
   const router = useRouter()
 
   async function HandleOnSubmit() {
-    await fetch('http://localhost:3003/items/create', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
+    await axios
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/items/create`, data)
+      .then((response) => response)
       .then((data) => {
         console.log(data)
         router.push('http://localhost:3000/items')
       })
-      .catch((error) => {
-        console.error('Error:', error)
-      })
+    // await fetch('http://localhost:3003/items/create', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data)
+    //     router.push('http://localhost:3000/items')
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error:', error)
+    //   })
   }
 
   return (

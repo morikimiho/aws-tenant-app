@@ -1,8 +1,7 @@
 import Link from 'next/link'
 import useSWR from 'swr'
 import Image from 'next/image'
-import Router from 'next/router'
-import router from 'next/router'
+import axios from 'axios'
 
 const fetcher = (
   resource: RequestInfo | URL,
@@ -10,7 +9,8 @@ const fetcher = (
 ) => fetch(resource, init).then((res) => res.json())
 export default function ItemList() {
   const { data, error } = useSWR(
-    'http://localhost:3003/items/get',
+    // 'http://localhost:3003/items/get',
+    `${process.env.NEXT_PUBLIC_API_URL}/items/get`,
     fetcher
   )
 
@@ -40,21 +40,31 @@ export default function ItemList() {
           }) => {
             const page = item.id.toString()
             const flag = { deleted: true }
-            function isDeleted() {
-              fetch(`http://localhost:3003/items/delete/${page}`, {
-                method: 'PATCH',
-                headers: {
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(flag),
-              })
+            async function isDeleted() {
+              await axios
+                .patch(
+                  `${process.env.NEXT_PUBLIC_API_URL}/items/delete/${page}`,
+                  flag
+                )
                 .then((response) => {
-                  return response.json()
-                })
-                .then((data) => {
-                  console.log(data)
                   location.reload()
+                  return response
                 })
+
+              //   fetch(`http://localhost:3003/items/delete/${page}`, {
+              //     method: 'PATCH',
+              //     headers: {
+              //       'Content-Type': 'application/json',
+              //     },
+              //     body: JSON.stringify(flag),
+              //   })
+              //     .then((response) => {
+              //       return response.json()
+              //     })
+              //     .then((data) => {
+              //       console.log(data)
+              //       location.reload()
+              //     })
             }
 
             if (item.deleted === false) {

@@ -35,7 +35,9 @@ export default function ItemDetail({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch('http://localhost:3003/items/get')
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/items/get`
+  )
   const items = await res.json()
 
   const paths = items.map((item: { id: number }) => {
@@ -52,7 +54,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const res = await fetch(
-    `http://localhost:3003/items/get/${params?.id}`
+    `${process.env.NEXT_PUBLIC_API_URL}/items/get/${params?.id}`
   )
   const item = await res.json()
 

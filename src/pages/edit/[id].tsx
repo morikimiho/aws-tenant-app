@@ -1,3 +1,4 @@
+import axios from 'axios'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -42,22 +43,29 @@ export default function ItemEdit({
     deleted: false,
   }
 
-  function HandleOnSubmit() {
-    fetch(`http://localhost:3003/items/${id}`, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
+  async function HandleOnSubmit() {
+    await axios
+      .patch(`${process.env.NEXT_PUBLIC_API_URL}/items/${id}`, data)
+      .then((response) => response)
       .then((data) => {
         console.log(data)
         router.push('http://localhost:3000/items')
       })
-      .catch((error) => {
-        console.error('Error:', error)
-      })
+    // fetch(`http://localhost:3003/items/${id}`, {
+    //   method: 'PATCH',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(data),
+    // })
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log(data)
+    //     router.push('http://localhost:3000/items')
+    //   })
+    //   .catch((error) => {
+    //     console.error('Error:', error)
+    //   })
   }
 
   return (
@@ -99,7 +107,9 @@ export default function ItemEdit({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch('http://localhost:3003/items/get')
+  const res = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/items/get`
+  )
   const items = await res.json()
 
   const paths = items.map((item: { id: number }) => {
@@ -114,7 +124,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const res = await fetch(
-    `http://localhost:3003/items/get/${params?.id}`
+    `${process.env.NEXT_PUBLIC_API_URL}/items/get/${params?.id}`
   )
   const item = await res.json()
 
