@@ -2,34 +2,53 @@ import Head from 'next/head'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-
 // 表示画面
 export default function ItemRegistration() {
   //stateの宣言
   const [name, setName] = useState('')
   const [description, setDes] = useState('')
   const [price, setPrice] = useState('')
-  const [imageUrl, setUrl] = useState('')
+  // const [imageUrl, setUrl] = useState('')
 
+  // const data = {
+  //   name: name,
+  //   description: description,
+  //   price: price,
+  //   imageUrl: imageUrl,
+  //   deleted: false,
+  // }
+
+  //aws用のデータ
   const data = {
     name: name,
     description: description,
     price: price,
-    imageUrl: imageUrl,
-    deleted: false,
   }
 
   //router
   const router = useRouter()
 
   async function HandleOnSubmit() {
-    await axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/items/create`, data)
-      .then((response) => response)
-      .then((data) => {
-        console.log(data)
-        router.push('http://localhost:3000/items')
-      })
+    //awsのAPI
+    await fetch(
+      'https://pg5xd7ybjd.execute-api.ap-northeast-1.amazonaws.com/items',
+      {
+        method: 'POST',
+        body: JSON.stringify(data),
+      }
+    )
+
+    router.push('http://localhost:3001/items')
+    //Nest.jsのAPI
+    // await axios
+    //   .post(`${process.env.NEXT_PUBLIC_API_URL}/items/create`, data)
+    //   .then((response) => response)
+    //   .then((data) => {
+    //     console.log(data)
+    //     router.push('http://localhost:3000/items')
+    //   })
+
+    //JSONサーバーのAPI
     // await fetch('http://localhost:3003/items/create', {
     //   method: 'POST',
     //   headers: {
@@ -85,14 +104,14 @@ export default function ItemRegistration() {
           *価格は半角数字で入力してください。
         </span>
         <br />
-        <p>下記から画像をアップロードしてください。</p>
+        {/* <p>下記から画像をアップロードしてください。</p>
         <input
           type="file"
           value={imageUrl}
           onChange={(e) => {
             setUrl(e.target.value)
           }}
-        />
+        /> */}
       </form>
       <div>
         <br />

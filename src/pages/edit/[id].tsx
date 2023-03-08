@@ -3,23 +3,13 @@ import { GetStaticPaths, GetStaticProps } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
+import { Item } from '../../../type/type'
 
-export default function ItemEdit({
-  item,
-}: {
-  item: {
-    id: number
-    name: string
-    imageUrl: string
-    description: string
-    price: number
-  }
-}) {
-  const [id, setId] = useState(item.id)
-  const [name, setName] = useState(item.name)
-  const [description, setDes] = useState(item.description)
-  const [price, setPrice] = useState(item.price)
-  const [imageUrl, setUrl] = useState(item.imageUrl)
+export default function ItemEdit({ item }: { item: Item }) {
+  const [id, setId] = useState(item.id.S)
+  const [name, setName] = useState(item.name.S)
+  const [description, setDes] = useState(item.description.S)
+  const [price, setPrice] = useState(item.price.S)
 
   const router = useRouter()
   const handleName = (e: any) => {
@@ -31,26 +21,34 @@ export default function ItemEdit({
   const handlePrice = (e: any) => {
     setPrice(e.target.value)
   }
-  const handleUrl = (e: any) => {
-    setUrl(e.target.value)
-  }
 
   const data = {
+    id: id,
     name: name,
     description: description,
     price: price,
-    imageUrl: imageUrl,
-    deleted: false,
   }
 
+  // console.log(data)
+  // console.log(JSON.stringify(data))
   async function HandleOnSubmit() {
-    await axios
-      .patch(`${process.env.NEXT_PUBLIC_API_URL}/items/${id}`, data)
-      .then((response) => response)
-      .then((data) => {
-        console.log(data)
-        router.push('http://localhost:3000/items')
-      })
+    await fetch(
+      'https://pg5xd7ybjd.execute-api.ap-northeast-1.amazonaws.com/item/update',
+      {
+        method: 'PATCH',
+        body: JSON.stringify(data),
+      }
+    )
+
+    router.push('http://localhost:3001/items')
+
+    // await axios
+    //   .patch(`${process.env.NEXT_PUBLIC_API_URL}/items/${id}`, data)
+    //   .then((response) => response)
+    //   .then((data) => {
+    //     console.log(data)
+    //     router.push('http://localhost:3000/items')
+    //   })
     // fetch(`http://localhost:3003/items/${id}`, {
     //   method: 'PATCH',
     //   headers: {
@@ -88,9 +86,6 @@ export default function ItemEdit({
           <br />
           <span>商品価格:</span>
           <input type="text" value={price} onChange={handlePrice} />
-          {/* <br />
-                    <p>下記から画像をアップロードしてください。</p>
-                    <input type="text" value={imageUrl} onChange ={handleUrl}/> */}
         </form>
         <div>
           <br />
@@ -107,13 +102,30 @@ export default function ItemEdit({
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/items/get`
-  )
-  const items = await res.json()
+  // const res = await fetch(
+  //   `${process.env.NEXT_PUBLIC_API_URL}/items/get`
+  // )
+  // const items = await res.json()
 
-  const paths = items.map((item: { id: number }) => {
-    return { params: { id: item.id.toString() } }
+  // const paths = items.map((item: { id: number }) => {
+  //   return { params: { id: item.id.toString() } }
+  // })
+
+  // return {
+  //   paths,
+  //   fallback: false,
+  // }
+
+  const response = await fetch(
+    'https://pg5xd7ybjd.execute-api.ap-northeast-1.amazonaws.com/items'
+  )
+  const items = await response.json()
+  // console.log(items)
+
+  const paths = items.map((item: Item) => {
+    return {
+      params: { id: item.id },
+    }
   })
 
   return {
@@ -123,12 +135,26 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_API_URL}/items/get/${params?.id}`
+  // const res = await fetch(
+  //   `${process.env.NEXT_PUBLIC_API_URL}/items/get/${params?.id}`
+  // )
+  // const item = await res.json()
+
+  // return {
+  //   props: { item },
+  // }
+
+  const response = await fetch(
+    `https://pg5xd7ybjd.execute-api.ap-northeast-1.amazonaws.com/items/detail?id=${params?.id}`
   )
-  const item = await res.json()
+
+  const item = await response.json()
+  // console.log(item)
+  // console.log(item.name)
 
   return {
-    props: { item },
+    props: {
+      item,
+    },
   }
 }

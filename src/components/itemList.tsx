@@ -8,15 +8,16 @@ const fetcher = (
   init: RequestInit | undefined
 ) => fetch(resource, init).then((res) => res.json())
 export default function ItemList() {
-  const { data, error } = useSWR(
-    // 'http://localhost:3003/items/get',
-    `${process.env.NEXT_PUBLIC_API_URL}/items/get`,
-    fetcher
-  )
+  // JSONサーバー、Nest.jsのAPI
+  // const { data, error } = useSWR(
+  //   // 'http://localhost:3003/items/get',
+  //   `${process.env.NEXT_PUBLIC_API_URL}/items/get`,
+  //   fetcher
+  // )
 
-  if (error) return <div>failed to load</div>
+  // if (error) return <div>failed to load</div>
 
-  if (!data) return <div>loading...</div>
+  // if (!data) return <div>loading...</div>
 
   return (
     <table>
